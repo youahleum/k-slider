@@ -17,11 +17,11 @@ li {
 .kind_wrap > .kind_slider {
   overflow: hidden;
 }
-.kind_wrap > .kind_slider .slider {
+.kind_wrap > .kind_slider .k_list {
   position: relative;
   /* transition: all 500ms ease;  script로 변경함 */
 }
-.kind_wrap > .kind_slider .slider li {
+.kind_wrap > .kind_slider .k_list .k_item {
   float: left;
 }
 .kind_wrap > .kind_slider img {

@@ -1,9 +1,10 @@
-function KSlider() {
+function KSlider(target, option) {
   // node 준비
-  // const kindWrap = document.querySelector(".kind_wrap");
-  const slider = document.querySelector(".slider");
+  const slider = document.querySelector(target);
+  console.dir(slider);
   const kindWrap = document.createElement("div");
   const kindSlider = document.createElement("div");
+  slider.classList.add("k_list");
   kindWrap.className = "kind_wrap";
   kindSlider.className = "kind_slider";
   //parentNode : 부모를 찾음
@@ -11,11 +12,13 @@ function KSlider() {
   kindWrap.appendChild(kindSlider);
   kindSlider.appendChild(slider);
 
-  const slideLis = slider.querySelectorAll("li");
-  // const moveButton = kindWrap.querySelector(".arrow ");
-  const cloneA = slideLis[0].cloneNode(true);
-  const cloneC = slideLis[slideLis.length - 1].cloneNode(true);
-  slider.insertBefore(cloneC, slideLis[0]); //slideLis[0]앞에 clineC를 넣어준다
+  const slideItems = slider.children;
+  for (i = 0; i < slideItems.length; i++) {
+    slideItems[i].className = "k_item";
+  }
+  const cloneA = slideItems[0].cloneNode(true);
+  const cloneC = slideItems[slideItems.length - 1].cloneNode(true);
+  slider.insertBefore(cloneC, slideItems[0]); //slideItems[0]앞에 cloneC를 넣어준다
   slider.appendChild(cloneA); // 뒤에 자식을 만들어주기
 
   // 아래 moveButton, 태그 생성 줄여서 작성
@@ -44,11 +47,11 @@ function KSlider() {
   // 주요 변수 초기화
   let moveDist = 0;
   let currnetNum = 1;
-  const speedTime = 500;
+  const speedTime = option.speed;
 
   // Cssom 셋업
-  const slideCloneLis = slider.querySelectorAll("li");
-  const liWidth = slideLis[0].clientWidth;
+  const slideCloneLis = slider.querySelectorAll(".k_item");
+  const liWidth = slideItems[0].clientWidth;
   const sliderWidth = liWidth * slideCloneLis.length;
   slider.style.width = `${sliderWidth}px`;
   moveDist = -liWidth;
