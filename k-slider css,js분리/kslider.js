@@ -59,10 +59,20 @@ function KSlider(target, option) {
     // moveButton.appendChild(nextA);
     // kindWrap.appendChild(moveButton);
 
+    //옵션 셋팅
+    const OPTION = (function (opt) {
+      const OPT = { ...opt };
+      if (opt.speed < 0) {
+        throw new Error("0이상 값을 넣으세요.");
+      } else {
+        return Object.freeze(OPT);
+      }
+    })(option);
+
     // 주요 변수 초기화
     let moveDist = 0;
     let currnetNum = 1;
-    const speedTime = option.speed;
+    // const speedTime = OPTION.speed;
 
     // Cssom 셋업
     const slideCloneLis = slider.querySelectorAll(".k_item");
@@ -87,7 +97,7 @@ function KSlider(target, option) {
             moveDist = -liWidth * (slideCloneLis.length - 2);
             slider.style.left = `${moveDist}px`;
             currnetNum = slideCloneLis.length - 2;
-          }, speedTime);
+          }, OPTION.speed);
         }
       } else {
         //다음이 눌렸을때
@@ -99,14 +109,14 @@ function KSlider(target, option) {
             moveDist = -liWidth; // 진짜 1값으로 만듬
             slider.style.left = `${moveDist}px`; //진짜 1의 위치로 보내고
             currnetNum = 1; //현재번호 업데이트
-          }, speedTime);
+          }, OPTION.speed);
         }
       }
       function move(plus) {
         currnetNum += plus;
         moveDist += -liWidth * plus;
         slider.style.left = `${moveDist}px`;
-        slider.style.transition = `all ${speedTime}ms ease`;
+        slider.style.transition = `all ${OPTION.speed}ms ease`;
       }
     }
   }
